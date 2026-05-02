@@ -40,7 +40,7 @@ function render(items) {
     div.className = 'item';
 
     const img = document.createElement('img');
-    img.src = '../icons/' + item.Hash + '.png';
+    img.src = new URL('icons/' + item.Hash + '.png', document.baseURI);;
 
     const text = document.createElement('span');
     text.textContent = item.Name;
