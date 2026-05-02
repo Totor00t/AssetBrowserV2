@@ -21,16 +21,8 @@ const CRC32 = (() => {
   return { str: crc32 };
 })();
 
-fetch('items.json')
-  .then(r => r.json())
-  .then(items => {
-    itemsData = items;
-    render(itemsData);
-  });
-
 function render(items) {
   const list = document.getElementById('list');
-  
   list.innerHTML = '';
 
   const fragment = document.createDocumentFragment();
@@ -42,9 +34,14 @@ function render(items) {
     const img = document.createElement('img');
     img.loading = 'lazy'; 
     img.src = new URL('icons/' + item.Hash + '.png', document.baseURI).href;
-    
     img.width = 50; 
     img.height = 50;
+
+    // --- AJOUT : Masquer l'item si l'image ne charge pas ---
+    img.onerror = () => {
+      div.style.display = 'none'; 
+    };
+    // ------------------------------------------------------
 
     const text = document.createElement('span');
     text.textContent = item.Name;
