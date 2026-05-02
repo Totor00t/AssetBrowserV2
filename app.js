@@ -31,11 +31,8 @@ fetch('items.json')
 function render(items) {
   const list = document.getElementById('list');
   
-  // On vide la liste
   list.innerHTML = '';
 
-  // 1. Utilisation d'un DocumentFragment (mémoire tampon)
-  // Cela évite de mettre à jour le DOM 1000 fois, on le fait 1 seule fois à la fin.
   const fragment = document.createDocumentFragment();
 
   items.forEach(item => {
@@ -43,12 +40,9 @@ function render(items) {
     div.className = 'item';
 
     const img = document.createElement('img');
-    // 2. LE LAZY LOADING : l'image ne charge que si elle approche du champ de vision
     img.loading = 'lazy'; 
     img.src = new URL('icons/' + item.Hash + '.png', document.baseURI).href;
     
-    // Optionnel : Ajouter une largeur/hauteur fixe en CSS pour que le 
-    // navigateur réserve l'espace avant que l'image ne charge (évite les sauts d'écran)
     img.width = 50; 
     img.height = 50;
 
@@ -65,12 +59,10 @@ function render(items) {
     fragment.appendChild(div);
   });
 
-  // 3. Injection finale unique
   list.appendChild(fragment);
 }
 
 function onItemClick(item) {
-  // Le calcul CRC32 se fait ici, seulement quand on en a besoin
   const copyText = GetID(item.Name).toString();
   
   navigator.clipboard.writeText(copyText)
@@ -82,7 +74,6 @@ function onItemClick(item) {
     });
 }
 
-// Ajout d'un petit délai (debounce) sur la recherche pour éviter les freezes en tapant
 let searchTimeout;
 document.getElementById('search').addEventListener('input', (e) => {
   clearTimeout(searchTimeout);
@@ -92,7 +83,7 @@ document.getElementById('search').addEventListener('input', (e) => {
       item.Name.toLowerCase().includes(value)
     );
     render(filtered);
-  }, 250); // Attend 250ms après la fin de la frappe
+  }, 250);
 });
 
 function GetID(name){
