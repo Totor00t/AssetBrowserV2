@@ -67,10 +67,10 @@ function onItemClick(item) {
   
   navigator.clipboard.writeText(copyText)
     .then(() => {
-      alert('Copié ! \nNom: ' + item.Name + '\nID: ' + copyText);
+      alert('Name: ' + item.Name + '\nID: ' + copyText);
     })
     .catch(err => {
-      console.error('Erreur de copie : ', err);
+      console.error('Error : ', err);
     });
 }
 
@@ -84,6 +84,26 @@ document.getElementById('search').addEventListener('input', (e) => {
     );
     render(filtered);
   }, 250);
+});
+
+document.getElementById('customID').addEventListener('click', () => {
+  const input = document.getElementById('customids');
+  const name = input.value.trim();
+
+  if (!name) {
+    alert('Please enter an item name to generate an ID.');
+    return;
+  }
+
+  const copyText = GetID(name).toString();
+
+  navigator.clipboard.writeText(copyText)
+    .then(() => {
+      alert('Copied ID: ' + copyText);
+    })
+    .catch((err) => {
+      console.error('Error copying ID:', err);
+    });
 });
 
 function GetID(name){
