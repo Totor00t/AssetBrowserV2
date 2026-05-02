@@ -1,4 +1,5 @@
 let itemsData = [];
+const BASE_PATH = document.baseURI;
 const CRC32 = (() => {
   let table = new Uint32Array(256);
 
@@ -23,7 +24,7 @@ const CRC32 = (() => {
     str: crc32
   };
 })();
-fetch('items.json')
+fetch(new URL('items.json', BASE_PATH))
   .then(r => r.json())
   .then(items => {
     itemsData = items;
@@ -39,7 +40,7 @@ function render(items) {
     div.className = 'item';
 
     const img = document.createElement('img');
-    img.src = '../icons/' + item.Hash + '.png';
+    img.src = new URL('icons/' + item.Hash + '.png', BASE_PATH);
 
     const text = document.createElement('span');
     text.textContent = item.Name;
