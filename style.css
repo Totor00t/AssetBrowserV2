@@ -32,8 +32,14 @@ html, body {
 }
 .item:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.247);
+  scale: 1.05;
+  transition-duration: 0.2s;
 }
-
+.item:active {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.247);
+  scale: 0.95;
+  transition-duration: 0.1s;
+}
 .item img {
   width: 60px;
   height: 60px;
