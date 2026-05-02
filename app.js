@@ -67,7 +67,7 @@ function onItemClick(item) {
   
   navigator.clipboard.writeText(copyText)
     .then(() => {
-      alert('Name: ' + item.Name + '\nID: ' + copyText);
+      alert('Name: ' + item.Name + '\nID: ' + copyText + '\n\nID copied to clipboard.');
     })
     .catch(err => {
       console.error('Error : ', err);
